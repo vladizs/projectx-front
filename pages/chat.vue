@@ -96,7 +96,7 @@ export default {
       this.messageInput = null
     },
     openWS() {
-      let ws = new WebSocket('ws://195.2.73.205:8080');
+      let ws = new WebSocket('wss://projectx.vladizs.tech/websocket');
       ws.onmessage = (e) => {
         if(e.data === '1') {
           return;

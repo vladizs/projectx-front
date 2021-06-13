@@ -10,9 +10,17 @@
           <img src="~/assets/img/ban-icon.svg" alt="" class="icon" >
           <span>Разблокировать чат</span>
         </div>
+        <div class="menu-action danger" @click="hideUser(contextMenu.user)">
+          <img src="~/assets/img/hide-icon.svg" alt="" class="icon" >
+          <span>Скрыть из списка</span>
+        </div>
+        <div class="menu-action danger" @click="hideAndBanUser(contextMenu.user)">
+          <img src="~/assets/img/banhide-icon.svg" alt="" class="icon" >
+          <span>Скрыть и заблокировать</span>
+        </div>
       </div>
       <div class="user">
-        <div class="menu-action">
+        <div class="menu-action" @click="copyId(contextMenu.user)">
           <img src="~/assets/img/id-icon.svg" alt="" class="icon">
           <span>Копировать userId</span>
         </div>
@@ -93,9 +101,33 @@ export default {
       });
       this.closeContext();
     },
+    hideUser(user) {
+      this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded', [
+        'post'
+      ]);
+      this.$axios.setHeader('Authorization', `Bearer ${this.$cookies.get('token')}`);
+      this.$axios.$post('/user/hide', {
+        userId: user.userId,
+      });
+      this.closeContext();
+    },
+    hideAndBanUser(user) {
+      this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded', [
+        'post'
+      ]);
+      this.$axios.setHeader('Authorization', `Bearer ${this.$cookies.get('token')}`);
+      this.$axios.$post('/user/hideban', {
+        userId: user.userId,
+      });
+      this.closeContext();
+    },
     logout() {
       this.$cookies.remove('token');
       this.$router.push('/');
+    },
+    async copyId(user) {
+      this.closeContext();
+      await navigator.clipboard.writeText(user.userId);
     }
   }
 };

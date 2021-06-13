@@ -129,6 +129,12 @@ export default {
         if(data.newUser) {
           this.users.push(data.newUser[0]);
         }
+        if(data.hidden) {
+          const targetUser = this.users.filter(user => {
+            return user.userId == data.hidden;
+          })[0];
+          this.users.splice(this.users.indexOf(targetUser), 1);
+        }
       };
 
       ws.onclose = function(e) {

@@ -4,8 +4,9 @@
       <img
         v-if="user.userType === 'admin'"
         src="~/assets/img/crown.svg"
-        alt=""
+        title="Гигант мысли (админ)"
         class="admin-crown" />
+      <img v-if="user.isBanned" src="~/assets/img/banned.svg" class="banned-icon" title="Заблокирован чат">
       <div v-if="user && currentUser && user.userId === currentUser.userId" class="isyou">(ты)</div>
     </div>
 </template>
@@ -53,7 +54,7 @@ export default {
       color: #f7b047;
     }
   }
-  .admin-crown {
+  .admin-crown, .banned-icon {
     width: 20px;
     height: 20px;
     margin-left: 6px;

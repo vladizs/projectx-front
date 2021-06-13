@@ -247,4 +247,10 @@ main.main {
 .error-enter, .error-leave-to {
   top: -20%;
 }
+
+@media screen and (max-width: 992px) {
+  aside {
+    display: none;
+  }
+}
 </style>
